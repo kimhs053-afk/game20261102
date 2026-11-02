@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f2ff">
+<title>사자성어 챌린지</title>
+<style>
+:root{--ink:#292642;--muted:#77748e;--purple:#7157d9;--purple2:#8d78ed;--bg:#f6f4fb;--card:#fff;--line:#ece9f5;--green:#18865b;--red:#d94f62;--gold:#e8a62c;--shadow:0 14px 40px rgba(58,45,111,.09)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 12% 8%,#eee9ff 0,transparent 30%),radial-gradient(circle at 90% 20%,#fff1e5 0,transparent 25%),var(--bg);font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;color:var(--ink);min-height:100vh}
+button,input{font:inherit}button{cursor:pointer;border:0} .app{max-width:940px;margin:auto;padding:24px 18px 56px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}.brand{display:flex;gap:11px;align-items:center;font-weight:900;font-size:19px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#8b73ee,#6045c6);display:grid;place-items:center;color:white;font-size:22px;box-shadow:0 7px 18px #8b73ee55}.tag{font-size:12px;color:var(--muted);background:#fff;padding:8px 12px;border-radius:99px;border:1px solid var(--line)}
+main{min-height:600px}.screen{display:none}.screen.active{display:block}.hero{text-align:center;padding:34px 16px 28px}.eyebrow{color:var(--purple);font-size:13px;font-weight:800;letter-spacing:.08em}.hero h1{font-size:clamp(34px,6vw,54px);line-height:1.12;margin:13px 0 12px;letter-spacing:-.06em}.hero p{color:var(--muted);margin:0;line-height:1.7}.hero-art{font-size:64px;margin:18px 0 8px;filter:drop-shadow(0 8px 8px #6c55bf22)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:25px;box-shadow:var(--shadow)}.setup{max-width:650px;margin:0 auto}.field{margin:0 0 22px}.field label{display:block;font-weight:800;margin-bottom:10px}.choices{display:flex;gap:9px;flex-wrap:wrap}.choice{background:#f7f6fb;color:#5f5b73;border:1px solid #e9e6f1;padding:11px 16px;border-radius:13px;font-weight:700}.choice.selected{background:#eeeaff;border-color:#a99af1;color:#6048c8;box-shadow:inset 0 0 0 1px #a99af1}.choice small{display:block;font-size:11px;font-weight:500;margin-top:3px}
+.primary{background:linear-gradient(135deg,var(--purple2),#6045c6);color:#fff;padding:15px 24px;border-radius:15px;font-weight:850;box-shadow:0 8px 18px #7157d944;transition:.15s}.primary:hover{transform:translateY(-1px);filter:brightness(1.03)}.secondary{background:#f1eff8;color:#5d5678;padding:12px 18px;border-radius:13px;font-weight:750}.wide{width:100%;font-size:17px;margin-top:5px}
+.game-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.progress-wrap{flex:1}.progress-label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:700;margin-bottom:8px}.progress{height:9px;background:#eae7f3;border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#9b86f4,#654bcc);border-radius:99px;transition:width .25s}.stat-pill{background:#fff;border:1px solid var(--line);border-radius:13px;padding:10px 13px;font-size:13px;font-weight:800;white-space:nowrap}
+.question-card{text-align:center;padding:32px 24px 27px}.question-kicker{font-size:13px;color:var(--muted);font-weight:800}.question-card h2{font-size:clamp(27px,5vw,38px);margin:9px 0 5px;letter-spacing:-.04em}.hintline{color:var(--muted);font-size:14px;margin-bottom:25px}.idiom{display:flex;justify-content:center;gap:9px;margin:22px 0 26px}.tile{width:clamp(58px,13vw,82px);height:clamp(66px,14vw,91px);border-radius:17px;display:grid;place-items:center;font-size:clamp(27px,6vw,39px);font-weight:900;background:#f1effb;border:1px solid #e4def8;color:#51428f}.tile.blank{background:#fff9e9;border:2px dashed #e9bd62;color:#c18a20}.answer-area{max-width:410px;margin:auto}.answer-input{width:100%;border:2px solid #e8e4f1;border-radius:15px;padding:15px 16px;text-align:center;font-size:23px;font-weight:850;letter-spacing:.25em;outline:none;color:var(--ink)}.answer-input:focus{border-color:#9a87ec;box-shadow:0 0 0 4px #9a87ec22}.answer-input::placeholder{letter-spacing:0;font-size:15px;font-weight:500;color:#aaa6b8}.actions{display:flex;gap:9px;margin-top:12px}.actions button{flex:1}.feedback{margin:18px auto 0;max-width:540px;border-radius:15px;padding:15px 17px;text-align:left;display:none;line-height:1.6}.feedback.good{display:block;background:#eaf8f1;color:#176c4c}.feedback.bad{display:block;background:#fff0f1;color:#a83d4c}.feedback strong{display:block;font-size:16px;margin-bottom:3px}.explain{font-size:14px}.bottom-actions{display:flex;justify-content:center;gap:9px;margin-top:18px;flex-wrap:wrap}
+.result{text-align:center;padding:35px 25px}.result .medal{font-size:64px}.result h2{font-size:34px;margin:8px 0}.score{font-size:52px;font-weight:950;color:var(--purple);margin:10px 0}.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}.result-box{background:#f7f6fb;border-radius:16px;padding:16px 8px}.result-box b{display:block;font-size:23px}.result-box span{font-size:12px;color:var(--muted);font-weight:700}.review{margin-top:20px;text-align:left}.review h3{margin:0 0 12px}.review-item{padding:13px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:14px}.review-item b{font-size:16px}.review-item span{color:var(--muted);text-align:right}
+footer{text-align:center;color:#9995a9;font-size:12px;margin-top:28px}
+@media(max-width:560px){.app{padding:16px 12px 36px}header{margin-bottom:12px}.tag{font-size:11px}.hero{padding:25px 8px 20px}.panel{padding:19px;border-radius:20px}.question-card{padding:25px 15px}.game-top{align-items:flex-start;flex-wrap:wrap}.progress-wrap{min-width:100%;order:2}.stat-pill{padding:8px 10px}.result-grid{gap:7px}.result-box{padding:13px 5px}.actions{flex-direction:column}.actions button{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand"><div class="logo">四</div><span>사자성어 챌린지</span></div><div class="tag">재미있게 배우는 우리말 퀴즈</div></header>
+<main>
+<section id="start" class="screen active">
+ <div class="hero"><div class="eyebrow">WORD QUIZ · IDIOM CHALLENGE</div><div class="hero-art">📚✨</div><h1>사자성어,<br>얼마나 알고 계세요?</h1><p>빈칸에 들어갈 두 글자를 맞혀 보세요.<br>한 문제씩 풀다 보면 어휘력이 쑥쑥 자랍니다!</p></div>
+ <div class="panel setup">
+  <div class="field"><label>1. 난이도를 선택하세요</label><div class="choices" id="difficulty"><button class="choice selected" data-value="all">전체<small>모든 난이도</small></button><button class="choice" data-value="초급">초급<small>쉬운 사자성어</small></button><button class="choice" data-value="중급">중급<small>일반 수준</small></button><button class="choice" data-value="고급">고급<small>도전 문제</small></button></div></div>
+  <div class="field"><label>2. 출제 유형을 선택하세요</label><div class="choices" id="direction"><button class="choice selected" data-value="random">무작위<small>앞·뒤 두 글자</small></button><button class="choice" data-value="first">앞 두 글자 제시</button><button class="choice" data-value="last">뒤 두 글자 제시</button></div></div>
+  <div class="field"><label>3. 문제 개수</label><div class="choices" id="count"><button class="choice" data-value="5">5문제</button><button class="choice selected" data-value="10">10문제</button><button class="choice" data-value="15">15문제</button><button class="choice" data-value="20">20문제</button></div></div>
+  <button class="primary wide" id="startBtn">게임 시작하기 →</button>
+  <div style="text-align:center;color:#8b879b;font-size:12px;margin-top:13px">최고 점수 <b id="bestStart">0점</b></div>
+ </div>
+</section>
+<section id="game" class="screen">
+ <div class="game-top"><div class="progress-wrap"><div class="progress-label"><span id="progressText">문제 1 / 10</span><span id="percent">0%</span></div><div class="progress"><div class="bar" id="bar"></div></div></div><div class="stat-pill">⭐ <span id="scoreNow">0</span>점</div><div class="stat-pill">🔥 <span id="streakNow">0</span>연속</div></div>
+ <div class="panel question-card">
+  <div class="question-kicker" id="questionType">빈칸에 들어갈 두 글자는?</div><h2>사자성어 완성하기</h2><div class="hintline">정답 두 글자를 입력하고 확인을 눌러주세요.</div>
+  <div class="idiom" id="idiomTiles"></div>
+  <div class="answer-area"><input id="answer" class="answer-input" maxlength="2" autocomplete="off" placeholder="두 글자 입력" aria-label="정답 두 글자"><div class="actions"><button class="secondary" id="hintBtn">힌트 보기</button><button class="primary" id="checkBtn">정답 확인</button></div></div>
+  <div id="feedback" class="feedback" aria-live="polite"></div>
+  <div class="bottom-actions"><button class="secondary" id="nextBtn" style="display:none">다음 문제 →</button><button class="secondary" id="quitBtn">게임 그만하기</button></div>
+ </div>
+</section>
+<section id="result" class="screen">
+ <div class="panel result"><div class="medal" id="medal">🏆</div><div class="eyebrow">CHALLENGE COMPLETE</div><h2>멋지게 도전하셨습니다!</h2><p style="color:var(--muted);margin:0">오늘의 사자성어 실력을 확인해 보세요.</p><div class="score"><span id="finalScore">0</span><small style="font-size:20px">점</small></div>
+ <div class="result-grid"><div class="result-box"><b id="correctCount">0</b><span>정답</span></div><div class="result-box"><b id="wrongCount">0</b><span>오답</span></div><div class="result-box"><b id="accuracy">0%</b><span>정답률</span></div></div>
+ <p id="bestMessage" style="font-weight:800;color:var(--purple)"></p>
+ <div class="review" id="review"><h3>다시 살펴보기</h3><div id="reviewList"></div></div>
+ <div class="actions" style="max-width:430px;margin:24px auto 0"><button class="secondary" id="homeBtn">처음으로</button><button class="primary" id="againBtn">한 번 더 도전하기</button></div>
+ </div>
+</section>
+</main>
+<footer>사자성어 챌린지 · 문제와 기록은 이 브라우저 안에서 관리됩니다.</footer>
+</div>
+<script>
+const idioms = [
+["고진감래","고생 끝에 즐거움이 옴","어려운 시기를 견디면 좋은 날이 옵니다.","초급"],
+["전화위복","화가 바뀌어 오히려 복이 됨","실패를 배움의 기회로 삼아 전화위복의 계기로 만들었습니다.","초급"],
+["일석이조","한 가지 일로 두 가지 이익을 얻음","걸어서 출근하니 운동도 되고 교통비도 아껴 일석이조입니다.","초급"],
+["동문서답","묻는 말과 전혀 관계없는 대답","질문과 다른 대답을 하니 동문서답이라는 말을 들었습니다.","초급"],
+["작심삼일","결심한 마음이 사흘을 가지 못함","운동을 시작했지만 작심삼일로 끝나지 않도록 노력합니다.","초급"],
+["유비무환","미리 준비하면 근심이 없음","비상용품을 미리 챙겨 두면 유비무환입니다.","초급"],
+["금상첨화","좋은 일에 또 좋은 일이 더해짐","좋은 날씨에 친구까지 만나니 금상첨화입니다.","초급"],
+["새옹지마","인생의 길흉화복은 변화가 많아 예측하기 어려움","지금의 실패가 기회가 될 수도 있으니 새옹지마입니다.","중급"],
+["역지사지","처지를 바꾸어 생각함","상대방의 입장에서 생각하는 역지사지의 자세가 필요합니다.","중급"],
+["막상막하","실력이나 수준이 서로 비슷함","두 선수의 실력은 막상막하입니다.","중급"],
+["오리무중","일의 형편이나 상황을 알 수 없음","사건의 실마리가 잡히지 않아 아직 오리무중입니다.","중급"],
+["청출어람","제자가 스승보다 나음","제자가 스승보다 뛰어난 청출어람의 사례입니다.","중급"],
+["설상가상","어려운 일이 겹쳐 일어남","차가 고장 났는데 비까지 와서 설상가상입니다.","중급"],
+["이심전심","말하지 않아도 서로 마음이 통함","오랜 친구와는 이심전심으로 생각이 통합니다.","중급"],
+["과유불급","지나친 것은 모자란 것과 같음","운동도 너무 무리하면 안 됩니다. 과유불급이지요.","중급"],
+["각골난망","은혜를 뼈에 새길 만큼 잊지 못함","도움을 주신 은혜를 각골난망으로 여기겠습니다.","고급"],
+["일취월장","날마다 달마다 발전함","꾸준히 연습한 실력이 일취월장했습니다.","고급"],
+["백년하청","아무리 기다려도 어떤 일이 이루어지기 어려움","그의 변화를 기다리는 것은 백년하청일지도 모릅니다.","고급"],
+["풍전등화","바람 앞의 등불처럼 매우 위태로운 상황","회사의 경영 상황은 풍전등화와 같습니다.","고급"],
+["우공이산","끈기 있게 노력하면 어떤 일도 이룰 수 있음","매일 조금씩 공부하는 우공이산의 자세가 중요합니다.","고급"],
+["결초보은","죽어서도 은혜를 잊지 않고 갚음","받은 은혜를 결초보은의 마음으로 갚고 싶습니다.","고급"],
+["호연지기","하늘과 땅 사이에 가득 찬 넓고 큰 기운 또는 도덕적 용기","바른 뜻을 품고 호연지기를 기릅니다.","고급"],
+["수어지교","물과 물고기처럼 매우 친밀한 사이","두 사람은 수어지교처럼 가까운 사이입니다.","고급"],
+["파죽지세","대나무를 쪼개는 기세처럼 거침없이 나아감","우리 팀은 파죽지세로 결승에 올랐습니다.","중급"],
+["군계일학","많은 사람 가운데 뛰어난 한 사람","그는 여러 지원자 중 군계일학이었습니다.","중급"],
+["명실상부","이름과 실제가 서로 부합함","그 선수는 명실상부한 최고의 선수입니다.","중급"],
+["자업자득","자기가 저지른 일의 결과를 자기가 받음","규칙을 어긴 결과이니 자업자득입니다.","초급"],
+["대기만성","큰 인물은 오랜 노력 끝에 이루어짐","늦게 시작했지만 대기만성이라는 말처럼 성장했습니다.","중급"],
+["동고동락","괴로움과 즐거움을 함께함","우리는 오랜 세월 동고동락한 동료입니다.","중급"],
+["유유상종","비슷한 사람끼리 서로 어울림","관심사가 비슷한 사람끼리 모이는 유유상종입니다.","중급"]
+].map(([word,meaning,example,level])=>({word,meaning,example,level}));
+const $=id=>document.getElementById(id);
+let settings={difficulty:"all",direction:"random",count:10}, deck=[],idx=0,score=0,correct=0,wrong=0,streak=0,locked=false,wrongItems=[];
+const bestKey="idiomChallengeBest";
+function best(){return Number(localStorage.getItem(bestKey)||0)}
+$("bestStart").textContent=best()+"점";
+function selectGroup(id,key){$(id).addEventListener("click",e=>{let b=e.target.closest("button[data-value]");if(!b)return;$(id).querySelectorAll("button").forEach(x=>x.classList.toggle("selected",x===b));settings[key]=b.dataset.value;});}
+selectGroup("difficulty","difficulty");selectGroup("direction","direction");selectGroup("count","count");
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});}
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function startGame(){let pool=idioms.filter(x=>settings.difficulty==="all"||x.level===settings.difficulty);deck=shuffle(pool).slice(0,Math.min(Number(settings.count),pool.length)).map(x=>({...x,direction:settings.direction==="random"?(Math.random()<.5?"first":"last"):settings.direction}));idx=0;score=correct=wrong=streak=0;wrongItems=[];show("game");renderQuestion();}
+$("startBtn").onclick=startGame;
+function renderQuestion(){locked=false;let q=deck[idx];$("progressText").textContent=`문제 ${idx+1} / ${deck.length}`;$("percent").textContent=Math.round(idx/deck.length*100)+"%";$("bar").style.width=(idx/deck.length*100)+"%";$("scoreNow").textContent=score;$("streakNow").textContent=streak;$("questionType").textContent=q.direction==="first"?"앞의 두 글자를 보고 완성하세요":"뒤의 두 글자를 보고 완성하세요";$("idiomTiles").innerHTML=[...q.word].map((c,i)=>`<div class="tile ${q.direction==="first"&&i>=2||q.direction==="last"&&i<2?"blank":""}">${q.direction==="first"&&i>=2||q.direction==="last"&&i<2?"?":c}</div>`).join("");$("answer").value="";$("answer").disabled=false;$("checkBtn").disabled=false;$("feedback").className="feedback";$("feedback").innerHTML="";$("nextBtn").style.display="none";$("hintBtn").disabled=false;$("hintBtn").textContent="힌트 보기";$("answer").focus();}
+function answerValue(q){return q.direction==="first"?q.word.slice(2):q.word.slice(0,2)}
+function check(){if(locked)return;let q=deck[idx],val=$("answer").value.trim().replace(/\s/g,"");if(!val){$("answer").focus();return}if([...val].length!==2){$("feedback").className="feedback bad";$("feedback").innerHTML="<strong>두 글자를 입력해 주세요.</strong>";return}locked=true;let ok=val===answerValue(q);if(ok){correct++;streak++;score+=10+(streak>=3?5:0);$("feedback").className="feedback good";$("feedback").innerHTML=`<strong>정답입니다! +${10+(streak>=3?5:0)}점</strong><div class="explain"><b>${q.word}</b> — ${q.meaning}<br>예문: ${q.example}</div>`;}else{wrong++;streak=0;wrongItems.push({q,user:val});$("feedback").className="feedback bad";$("feedback").innerHTML=`<strong>아쉽습니다. 정답은 ${answerValue(q)}입니다.</strong><div class="explain"><b>${q.word}</b> — ${q.meaning}<br>예문: ${q.example}</div>`;}$("idiomTiles").innerHTML=[...q.word].map(c=>`<div class="tile">${c}</div>`).join("");$("scoreNow").textContent=score;$("streakNow").textContent=streak;$("answer").disabled=true;$("checkBtn").disabled=true;$("hintBtn").disabled=true;$("nextBtn").style.display="inline-block";$("nextBtn").textContent=idx===deck.length-1?"결과 보기 →":"다음 문제 →";$("bar").style.width=((idx+1)/deck.length*100)+"%";$("percent").textContent=Math.round((idx+1)/deck.length*100)+"%";}
+$("checkBtn").onclick=check;$("answer").addEventListener("keydown",e=>{if(e.key==="Enter"){if(locked)next();else check();}});
+$("hintBtn").onclick=()=>{let q=deck[idx];$("hintBtn").disabled=true;$("hintBtn").textContent="힌트 확인";$("feedback").className="feedback";$("feedback").innerHTML=`<strong>힌트</strong><div class="explain">${q.meaning}</div>`;};
+function next(){if(idx<deck.length-1){idx++;renderQuestion()}else finish()}
+$("nextBtn").onclick=next;$("quitBtn").onclick=()=>{if(confirm("게임을 종료하고 처음 화면으로 돌아가시겠습니까?"))show("start")};
+function finish(){let acc=Math.round(correct/deck.length*100);let old=best(),isBest=score>old;if(isBest)localStorage.setItem(bestKey,score);$("finalScore").textContent=score;$("correctCount").textContent=correct;$("wrongCount").textContent=wrong;$("accuracy").textContent=acc+"%";$("medal").textContent=acc>=90?"🏆":acc>=60?"🥇":"🌱";$("bestMessage").textContent=isBest?`축하합니다! 새로운 최고 점수 ${score}점입니다.`:`최고 점수: ${Math.max(old,score)}점`;$("reviewList").innerHTML=wrongItems.length?wrongItems.map(({q,user})=>`<div class="review-item"><div><b>${q.word}</b><div style="color:#c44">입력: ${user} · 정답: ${answerValue(q)}</div></div><span>${q.meaning}</span></div>`).join(""):"<p style='color:#18865b'>모든 문제를 맞히셨습니다! 훌륭합니다.</p>";$("bestStart").textContent=best()+"점";show("result")}
+$("homeBtn").onclick=()=>{ $("bestStart").textContent=best()+"점";show("start")};$("againBtn").onclick=startGame;
+</script>
+</body>
+</html>
